@@ -841,15 +841,15 @@ function init() {
 	appNodes.shellSize.innerHTML = options;
 
 	setOptionsForSelect(appNodes.quality, [
-		{ label: "低", value: QUALITY_LOW },
-		{ label: "正常", value: QUALITY_NORMAL },
-		{ label: "高", value: QUALITY_HIGH },
+		{ label: "Thấp", value: QUALITY_LOW },
+		{ label: "Bình thường", value: QUALITY_NORMAL },
+		{ label: "Cao", value: QUALITY_HIGH },
 	]);
 
 	setOptionsForSelect(appNodes.skyLighting, [
-		{ label: "不", value: SKY_LIGHT_NONE },
-		{ label: "暗", value: SKY_LIGHT_DIM },
-		{ label: "正常", value: SKY_LIGHT_NORMAL },
+		{ label: "Không", value: SKY_LIGHT_NONE },
+		{ label: "Tối", value: SKY_LIGHT_DIM },
+		{ label: "Bình thường", value: SKY_LIGHT_NORMAL },
 	]);
 
 	// 0.9 is mobile default
@@ -859,7 +859,7 @@ function init() {
 	);
 
 	// Begin simulation
-	togglePause(false);
+	// togglePause(false); // Đã tắt - chỉ bắt đầu khi nhấn nút "Bắt đầu"
 
 	// initial render
 	renderApp(store.state);

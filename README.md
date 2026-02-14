@@ -89,7 +89,7 @@ git clone https://github.com/nguyentrungnghia1802/Firework.git
 
 ## Giấy phép
 
-Copyright © 2026 [Tên của bạn]. All rights reserved.
+Copyright © 2026 Nguyen Trung Nghia. All rights reserved.
 
 Bạn có thể sử dụng, chỉnh sửa, chia sẻ mã nguồn này cho mục đích cá nhân hoặc học tập.  
 Không được sử dụng cho mục đích thương mại khi chưa có sự đồng ý của tác giả.

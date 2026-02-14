@@ -115,6 +115,11 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
         setTimeout(() => {
             welcomeScreen.style.display = 'none';
             
+            // Bắt đầu pháo hoa (QUAN TRỌNG!)
+            if (typeof togglePause === 'function') {
+                togglePause(false);
+            }
+            
             // Khởi động nhạc nền
             if (!backgroundMusic) {
                 initBackgroundMusic();
