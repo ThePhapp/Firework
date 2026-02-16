@@ -11,12 +11,11 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
     // Danh sách lời chúc Tết
     const greetings = [
       "Lại một năm mới nữa lại ghé qua rồi,", 
-"mong rằng năm nay tôi vẫn được cùng bạn ngắm pháo hoa rực rỡ nhé!", 
-"hy vọng chúng ta vẫn sẽ giữ liên lạc thật thường xuyên,", 
-"chúc bạn luôn thật nhiều sức khỏe,", 
-"chúc bạn mỗi ngày đều ngập tràn niềm vui,", 
-"chúc bạn có thêm thật nhiều kỷ niệm đẹp để mỉm cười khi nhớ lại,", 
-"và trên hết, chúc bạn có được tất cả những điều trái tim mình mong muốn ᰔᩚ",
+"mong rằng năm nay t vẫn được cùng c ngắm pháo hoa rực rỡ nhé!",
+"chúc c luôn thật nhiều sức khỏe, xinh dep", 
+"chúc c mỗi ngày đều ngập tràn niềm vui,", 
+"chúc c có thêm thật nhiều kỷ niệm đẹp để mỉm cười khi nhớ lại,", 
+"và trên hết, chúc c có được tất cả những điều trái tim mình mong muốn ᰔᩚ",
     ];
 
     let greetingInterval = null;
