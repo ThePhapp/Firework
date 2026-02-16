@@ -225,7 +225,7 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
         }
         
         // Tính thời gian hiển thị: 106 giây / số ảnh
-        const displayTime = Math.floor(80000 / backgroundImages.length); // ms mỗi ảnh
+        const displayTime = Math.floor(106000 / backgroundImages.length); // ms mỗi ảnh
         console.log(`⏱️ Mỗi ảnh hiển thị ${displayTime}ms (${displayTime/1000}s)`);
         
         // Reset về ảnh đầu tiên
