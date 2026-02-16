@@ -488,19 +488,6 @@ body {
 	overflow: hidden;
 }
 
-/* Các vị trí căn chỉnh */
-.background-image.align-left {
-	background-position: left center;
-}
-
-.background-image.align-right {
-	background-position: right center;
-}
-
-.background-image.align-center {
-	background-position: center center;
-}
-
 /* Lời chúc */
 .greeting-text {
 	position: absolute;

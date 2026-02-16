@@ -29,26 +29,11 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
 
     // Config ảnh nền động
     const backgroundImages = [
-        {
-            url: './images/background/firework/1.png',
-            position: 'center'
-        },
-        {
-            url: './images/background/firework/2.png',
-            position: 'left'
-        },
-        {
-            url: './images/background/firework/3.png',
-            position: 'right'
-        },
-        {
-            url: './images/background/firework/4.jpg', 
-            position: 'center'
-        },
-        {
-            url: './images/background/firework/5.jpg',
-            position: 'left'
-        }
+        './images/background/firework/1.png',
+        './images/background/firework/2.png',
+        './images/background/firework/3.png',
+        './images/background/firework/4.jpg',
+        './images/background/firework/5.jpg'
     ];
     
     let currentImageIndex = 0;
@@ -162,18 +147,12 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
         } while (newIndex === currentImageIndex && backgroundImages.length > 1);
         
         currentImageIndex = newIndex;
-        const selectedImage = backgroundImages[currentImageIndex];
+        const selectedImageUrl = backgroundImages[currentImageIndex];
         
-        console.log(`🖼️ Đổi ảnh nền: ${selectedImage.url} (${selectedImage.position})`);
+        console.log(`🖼️ Đổi ảnh nền: ${selectedImageUrl}`);
         
-        // Xóa tất cả class align cũ
-        backgroundDiv.classList.remove('align-left', 'align-right', 'align-center');
-        
-        // Thêm class align mới
-        backgroundDiv.classList.add(`align-${selectedImage.position}`);
-        
-        // Đổi ảnh nền
-        backgroundDiv.style.backgroundImage = `url('${selectedImage.url}')`;
+        // Đổi ảnh nền (luôn căn giữa)
+        backgroundDiv.style.backgroundImage = `url('${selectedImageUrl}')`;
     }
 
     // Bắt đầu chu trình thay đổi ảnh nền
