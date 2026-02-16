@@ -10,39 +10,34 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
 
     // Danh sách lời chúc Tết
     const greetings = [
-        "Chúc Mừng Năm Mới 2026",
-        "An Khang Thịnh Vượng",
-        "Vạn Sự Như Ý",
-        "Sức Khỏe Dồi Dào",
-        "Tài Lộc Dồi Dào",
-        "Phúc Lộc Thọ",
-        "Hạnh Phúc Viên Mãn",
-        "Tiền Vào Như Nước",
-        "Công Danh Thăng Tiến",
-        "Gia Đình Hạnh Phúc",
-        "Học Tập Tiến Bộ",
-        "Công Việc Thuận Lợi",
-        "Tiền Tài Dồi Dào",
-        "May Mắn Quanh Năm",
-        "Luôn Bình An",
-        "Gặp Nhiều Điều May",
-        "Cát Tường Như Ý",
-        "Vui Vẻ Mỗi Ngày",
-        "Tình Duyên Viên Mãn",
-        "Sống Lâu Trăm Tuổi"
+      "Lại một năm mới đến rồi,",
+      "năm nay tôi và bạn cùng ngắm pháo hoa nhé!",
+      "vẫn giữ liên lạc thường xuyên nhé!",
+      "chúc bạn thật nhiều sức khoẻ",
+      "chúc bạn thật nhiều niềm vui",
+      "chúc bạn sẽ có thật nhiều kỉ niệm đẹp",
+      "chúc bạn tất cả ᰔᩚ",
     ];
 
     let greetingInterval = null;
     let backgroundMusic = null;
     let musicPlaying = false;
     let fireworksStartTime = null;
-    const FIREWORKS_DURATION = 120000; // 2 phút (120000ms)
+    let currentGreetingIndex = 0; // Theo dõi câu chúc hiện tại
+    let hasShownLixiMessage = false; // Đã hiển thị câu lì xì chưa
+    const FIREWORKS_DURATION = 95000; // 1 phút 35 giây (95000ms)
 
     // Khởi tạo nhạc nền
     function initBackgroundMusic() {
-        backgroundMusic = new Audio('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3');
+        backgroundMusic = new Audio('./audio/Tet-music-1.mp3');
         backgroundMusic.volume = 0.3;
-        backgroundMusic.loop = false; // Chỉ chạy 1 lần
+        backgroundMusic.loop = true; // Lặp lại liên tục
+        
+        // Event listeners cho debug
+        backgroundMusic.addEventListener('loadstart', () => console.log('🎵 Bắt đầu tải nhạc nền'));
+        backgroundMusic.addEventListener('canplay', () => console.log('🎵 Nhạc nền sẵn sàng phát'));
+        backgroundMusic.addEventListener('play', () => console.log('🎵 Nhạc nền đang phát'));
+        backgroundMusic.addEventListener('error', (e) => console.error('❌ Lỗi nhạc nền:', e));
     }
 
     // Bật/tắt nhạc nền
@@ -65,27 +60,59 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
         }
     }
 
-    // Hiển thị lời chúc ngẫu nhiên
-    function showRandomGreeting() {
+    // Hiển thị lời chúc theo thứ tự
+    function showSequentialGreeting() {
         const greetingText = document.getElementById('greetingText');
         if (!greetingText) return;
 
-        const randomGreeting = greetings[Math.floor(Math.random() * greetings.length)];
-        greetingText.textContent = randomGreeting;
-        greetingText.classList.add('show');
+        if (currentGreetingIndex < greetings.length) {
+            // Hiển thị các câu chúc bình thường
+            const greeting = greetings[currentGreetingIndex];
+            greetingText.textContent = greeting;
+            greetingText.classList.add('show');
 
-        setTimeout(() => {
-            greetingText.classList.remove('show');
-        }, 3000); // Hiển thị 3 giây
+            setTimeout(() => {
+                greetingText.classList.remove('show');
+            }, 3000); // Hiển thị 3 giây
+
+            currentGreetingIndex++;
+
+            // Nếu vừa hết danh sách chính, dừng interval và đặt timeout cho câu lì xì
+            if (currentGreetingIndex >= greetings.length) {
+                console.log('🎊 Đã hết 7 câu chúc, sẽ hiển thị câu lì xì sau 6 giây...');
+                if (greetingInterval) {
+                    clearInterval(greetingInterval);
+                    greetingInterval = null;
+                }
+                
+                // Sau 6 giây hiển thị câu lì xì
+                setTimeout(() => {
+                    if (!hasShownLixiMessage) {
+                        console.log('🧧 Hiển thị câu lì xì!');
+                        greetingText.textContent = "Nhớ nhận lì xì sau khi xem pháo hoa xong nhé!";
+                        greetingText.classList.add('show');
+                        hasShownLixiMessage = true;
+                        
+                        setTimeout(() => {
+                            greetingText.classList.remove('show');
+                        }, 4000); // Hiển thị lâu hơn một chút
+                    }
+                }, 6000);
+            }
+        }
     }
 
-    // Bắt đầu hiển thị lời chúc
+    // Bắt đầu hiển thị lời chúc theo thứ tự
     function startGreetings() {
+        // Reset index và flag
+        currentGreetingIndex = 0;
+        hasShownLixiMessage = false;
+        
         // Hiển thị lời chúc đầu tiên ngay lập tức
-        showRandomGreeting();
+        showSequentialGreeting();
 
-        // Sau đó hiển thị mỗi 4 giây
-        greetingInterval = setInterval(showRandomGreeting, 4000);
+        // Sau đó hiển thị mỗi 4 giây cho đến hết danh sách
+        greetingInterval = setInterval(showSequentialGreeting, 4000);
     }
 
     // Dừng hiển thị lời chúc
@@ -120,12 +147,36 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
                 togglePause(false);
             }
             
-            // Khởi động nhạc nền
+            // Khởi động nhạc nền với volume fade-in
             if (!backgroundMusic) {
                 initBackgroundMusic();
             }
-            backgroundMusic.play().catch(e => console.log('Không thể phát nhạc:', e));
-            musicPlaying = true;
+            
+            // Phát nhạc với fade-in để bypass autoplay restrictions
+            backgroundMusic.volume = 0.01;
+            backgroundMusic.play().then(() => {
+                console.log('✅ Nhạc nền bắt đầu phát');
+                // Tăng dần volume
+                let volume = 0.01;
+                const fadeIn = setInterval(() => {
+                    volume += 0.02;
+                    if (volume >= 0.3) {
+                        volume = 0.3;
+                        clearInterval(fadeIn);
+                    }
+                    backgroundMusic.volume = volume;
+                }, 50);
+                musicPlaying = true;
+            }).catch(e => {
+                console.log('❌ Không thể phát nhạc (autoplay blocked):', e);
+                // Thử lại sau khi user đã tương tác
+                setTimeout(() => {
+                    backgroundMusic.play().then(() => {
+                        backgroundMusic.volume = 0.3;
+                        musicPlaying = true;
+                    }).catch(e2 => console.error('❌ Vẫn lỗi:', e2));
+                }, 500);
+            });
 
             // Bắt đầu hiển thị lời chúc
             startGreetings();

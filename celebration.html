@@ -17,7 +17,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             overflow: hidden;
             font-family: "Russo One", arial, sans-serif;
             position: relative;
@@ -30,10 +30,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=1920');
+            background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920'); /* Ảnh nền Tết với tone đỏ */
             background-size: cover;
             background-position: center;
-            opacity: 0.15;
+            opacity: 0.4;
             z-index: 0;
         }
 
@@ -43,25 +43,20 @@
         }
 
         .main-text {
-            font-size: 8rem;
+            font-size: 5rem;
             font-weight: bold;
-            color: #fff;
+            color: #ffdddd;
             text-shadow: 
-                0 0 10px #fff,
-                0 0 20px #fff,
-                0 0 30px #ff00de,
-                0 0 40px #ff00de,
-                0 0 50px #ff00de,
-                0 0 60px #ff00de,
-                0 0 70px #ff00de;
-            animation: glow 2s ease-in-out infinite alternate, float 3s ease-in-out infinite;
+                0 0 3px #d32f2f,
+                0 0 5px #d32f2f;
+            animation: float 3s ease-in-out infinite;
             margin-bottom: 30px;
         }
 
         .sub-text {
-            font-size: 2.5rem;
-            color: #fff;
-            text-shadow: 0 0 10px #fff, 0 0 20px #fff;
+            font-size: 1.8rem;
+            color: #ffcccc;
+            text-shadow: 0 0 3px #d32f2f;
             animation: fadeIn 2s ease-in-out, float 3s ease-in-out infinite;
             animation-delay: 0.5s;
             opacity: 0;
@@ -69,14 +64,49 @@
         }
 
         .year {
-            font-size: 4rem;
-            color: #ffd700;
+            font-size: 3rem;
+            color: #ff6b6b;
             text-shadow: 
-                0 0 10px #ffd700,
-                0 0 20px #ffd700,
-                0 0 30px #ffd700;
+                0 0 5px #d32f2f,
+                0 0 8px #d32f2f;
             animation: pulse 1.5s ease-in-out infinite;
             margin-top: 20px;
+        }
+
+        .lixi-section {
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .lixi-text {
+            font-size: 1.5rem;
+            color: #ffcccc;
+            margin-bottom: 20px;
+            text-shadow: 0 0 3px #d32f2f;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .lixi-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #ff6b6b 0%, #d32f2f 100%);
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-radius: 25px;
+            box-shadow: 
+                0 5px 15px rgba(211, 47, 47, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .lixi-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 
+                0 8px 25px rgba(211, 47, 47, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
         }
 
         .sparkles {
@@ -91,31 +121,12 @@
             position: absolute;
             width: 5px;
             height: 5px;
-            background: white;
+            background: #ff6b6b;
             border-radius: 50%;
             animation: sparkle 3s linear infinite;
         }
 
-        @keyframes glow {
-            from {
-                text-shadow: 
-                    0 0 10px #fff,
-                    0 0 20px #fff,
-                    0 0 30px #ff00de,
-                    0 0 40px #ff00de,
-                    0 0 50px #ff00de;
-            }
-            to {
-                text-shadow: 
-                    0 0 20px #fff,
-                    0 0 30px #ff00de,
-                    0 0 40px #ff00de,
-                    0 0 50px #ff00de,
-                    0 0 60px #ff00de,
-                    0 0 70px #ff00de,
-                    0 0 80px #ff00de;
-            }
-        }
+        /* Đã xóa @keyframes glow vì không dùng nữa */
 
         @keyframes float {
             0%, 100% {
@@ -154,25 +165,39 @@
 
         @media (max-width: 768px) {
             .main-text {
-                font-size: 4rem;
+                font-size: 3rem;
             }
             .sub-text {
-                font-size: 1.5rem;
+                font-size: 1.2rem;
             }
             .year {
-                font-size: 2.5rem;
+                font-size: 2rem;
+            }
+            .lixi-text {
+                font-size: 1.2rem;
+            }
+            .lixi-btn {
+                font-size: 1rem;
+                padding: 12px 25px;
             }
         }
 
         @media (max-width: 480px) {
             .main-text {
-                font-size: 2.5rem;
+                font-size: 2rem;
             }
             .sub-text {
                 font-size: 1rem;
             }
             .year {
-                font-size: 1.8rem;
+                font-size: 1.5rem;
+            }
+            .lixi-text {
+                font-size: 1rem;
+            }
+            .lixi-btn {
+                font-size: 0.9rem;
+                padding: 10px 20px;
             }
         }
     </style>
@@ -183,6 +208,13 @@
         <h1 class="main-text">CHÚC MỪNG NĂM MỚI</h1>
         <p class="sub-text">An Khang Thịnh Vượng</p>
         <div class="year">2026</div>
+        
+        <div class="lixi-section">
+            <p class="lixi-text">🎁 Đã xem pháo hoa xong rồi! 🎁</p>
+            <a href="#" class="lixi-btn" onclick="alert('🧧 Chúc mừng bạn nhận được 100.000 VNĐ lì xì! 🧧\\nCảm ơn bạn đã xem pháo hoa cùng tôi! ❤️')">
+                🧧 NHẬN LÌ XÌ NGAY 🧧
+            </a>
+        </div>
     </div>
 
     <script>

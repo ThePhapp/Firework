@@ -252,11 +252,8 @@ function togglePause(toggle) {
 }
 
 function toggleSound(toggle) {
-	if (typeof toggle === "boolean") {
-		store.setState({ soundEnabled: toggle });
-	} else {
-		store.setState({ soundEnabled: !store.state.soundEnabled });
-	}
+	// Luôn giữ âm thanh bật, không cho phép tắt
+	store.setState({ soundEnabled: true });
 }
 
 function toggleMenu(toggle) {
@@ -297,9 +294,9 @@ function configDidUpdate() {
 
 const isRunning = (state = store.state) => !state.paused && !state.menuOpen;
 // Whether user has enabled sound.
-const soundEnabledSelector = (state = store.state) => state.soundEnabled;
+const soundEnabledSelector = (state = store.state) => true; // Luôn trả về true
 // Whether any sounds are allowed, taking into account multiple factors.
-const canPlaySoundSelector = (state = store.state) => isRunning(state) && soundEnabledSelector(state);
+const canPlaySoundSelector = (state = store.state) => true; // Luôn cho phép phát âm thanh
 // Convert quality to number.
 const qualitySelector = () => +store.state.config.quality;
 const shellNameSelector = () => store.state.config.shell;
