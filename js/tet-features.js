@@ -27,14 +27,54 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
     let hasShownLixiMessage = false; // Đã hiển thị câu lì xì chưa
     const FIREWORKS_DURATION = 106000; // 1 phút 46 giây (106000ms)
 
-    // Config ảnh nền động
-    const backgroundImages = [
-        './images/background/firework/1.png',
-        './images/background/firework/2.png',
-        './images/background/firework/3.png',
-        './images/background/firework/4.jpg',
-        './images/background/firework/5.jpg'
-    ];
+    // Config ảnh nền động - Tự động nhận dạng
+    const backgroundImages = [];
+    const imageExtensions = ['png', 'jpg', 'jpeg', 'webp', 'gif']; // Các đuôi file hỗ trợ
+    let imagesLoaded = false;
+
+    // Hàm kiểm tra file có tồn tại không
+    async function checkImageExists(url) {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = () => resolve(true);
+            img.onerror = () => resolve(false);
+            img.src = url;
+        });
+    }
+
+    // Tự động load danh sách ảnh từ 1 đến hết
+    async function loadBackgroundImages() {
+        backgroundImages.length = 0; // Clear array
+        let imageIndex = 1;
+        
+        console.log('🔍 Tự động tìm ảnh nền...');
+        
+        while (true) {
+            let foundImage = false;
+            
+            // Thử từng đuôi file cho số hiện tại
+            for (const ext of imageExtensions) {
+                const imagePath = `./images/background/firework/${imageIndex}.${ext}`;
+                
+                if (await checkImageExists(imagePath)) {
+                    backgroundImages.push(imagePath);
+                    console.log(`✅ Tìm thấy: ${imagePath}`);
+                    foundImage = true;
+                    break; // Tìm thấy rồi thì dừng thử các extension khác
+                }
+            }
+            
+            if (!foundImage) {
+                break; // Không tìm thấy file nào với số này, dừng tìm kiếm
+            }
+            
+            imageIndex++;
+        }
+        
+        console.log(`🎨 Loaded ${backgroundImages.length} ảnh nền:`, backgroundImages);
+        imagesLoaded = true;
+        return backgroundImages.length > 0;
+    }
     
     let currentImageIndex = 0;
     let imageChangeInterval = null;
@@ -138,7 +178,7 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
     // Thay đổi ảnh nền ngẫu nhiên
     function changeBackgroundImage() {
         const backgroundDiv = document.querySelector('.background-image');
-        if (!backgroundDiv) return;
+        if (!backgroundDiv || !imagesLoaded || backgroundImages.length === 0) return;
 
         // Chọn một ảnh ngẫu nhiên (khác với ảnh hiện tại)
         let newIndex;
@@ -156,7 +196,15 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
     }
 
     // Bắt đầu chu trình thay đổi ảnh nền
-    function startBackgroundImageCycle() {
+    async function startBackgroundImageCycle() {
+        // Load danh sách ảnh trước
+        const hasImages = await loadBackgroundImages();
+        
+        if (!hasImages) {
+            console.warn('⚠️ Không tìm thấy ảnh nền nào!');
+            return;
+        }
+        
         // Đổi ảnh ngay lập tức lần đầu
         changeBackgroundImage();
         
@@ -234,7 +282,7 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
                 startGreetings();
             }, 2000);
 
-            // Bắt đầu chu trình thay đổi ảnh nền
+            // Bắt đầu chu trình thay đổi ảnh nền (async)
             startBackgroundImageCycle();
 
             // Bắt đầu đếm thời gian
