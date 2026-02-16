@@ -25,7 +25,7 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
     let fireworksStartTime = null;
     let currentGreetingIndex = 0; // Theo dõi câu chúc hiện tại
     let hasShownLixiMessage = false; // Đã hiển thị câu lì xì chưa
-    const FIREWORKS_DURATION = 106000; // 1 phút 46 giây (106000ms)
+    const FIREWORKS_DURATION = 107000; // 1 phút 45 giây (105000ms)
 
     // Config ảnh nền động - Hiển thị lần lượt từ 1 đến 12
     const backgroundImages = [];
@@ -254,6 +254,10 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
 
         const elapsed = Date.now() - fireworksStartTime;
         if (elapsed >= FIREWORKS_DURATION) {
+            // Dừng bắn pháo hoa trước khi chuyển trang
+            if (typeof togglePause === 'function') {
+                togglePause(true);
+            }
             // Chuyển sang trang celebration
             window.location.href = 'celebration.html';
         }

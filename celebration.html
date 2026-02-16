@@ -17,12 +17,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            /* Lớp nền sau: Phóng to và làm mờ để lấp đầy */
+            background-image: url('./images/background/ending/1.png');
+            background-size: cover;
+            background-position: center;
             overflow: hidden;
             font-family: "Russo One", arial, sans-serif;
             position: relative;
         }
 
+        /* Lớp nền trước: Sắc nét và vừa vặn */
         body::before {
             content: '';
             position: absolute;
@@ -30,83 +34,79 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=1920'); /* Ảnh nền Tết với tone đỏ */
-            background-size: cover;
+            /* Mặc định cho laptop và màn hình lớn */
+            background-image: url('./images/background/ending/1.png');
+            background-size: contain; /* Khớp ảnh theo chiều dọc */
+            background-repeat: no-repeat;
             background-position: center;
-            opacity: 0.4;
+            /* Tăng opacity để ảnh rõ nét hơn */
+            opacity: 1; 
             z-index: 0;
+            /* Làm mờ lớp nền body phía sau */
+            backdrop-filter: blur(10px);
+        }
+
+        /* Khi màn hình nhỏ hơn hoặc bằng 768px (điện thoại) */
+        @media (max-width: 768px) {
+            body, body::before {
+                /* Sử dụng ảnh 2 cho điện thoại, và dùng cover cho cả 2 lớp */
+                background-image: url('./images/background/ending/2.png');
+                background-size: cover;
+            }
+            /* Không cần backdrop-filter trên mobile vì ảnh đã cover toàn màn hình */
+            body::before {
+                backdrop-filter: none;
+            }
+
+            .lixi-btn {
+                font-size: 1.5rem;
+                padding: 18px 35px;
+            }
         }
 
         .celebration-container {
             text-align: center;
             z-index: 10;
+            /* Thêm hiệu ứng để container nổi bật hơn */
+            background: rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            border-radius: 20px;
+            /* Bỏ backdrop-filter ở đây vì đã áp dụng cho body::before */
         }
 
-        .main-text {
-            font-size: 5rem;
-            font-weight: bold;
-            color: #ffdddd;
-            text-shadow: 
-                0 0 3px #d32f2f,
-                0 0 5px #d32f2f;
-            animation: float 3s ease-in-out infinite;
-            margin-bottom: 30px;
-        }
-
-        .sub-text {
-            font-size: 1.8rem;
-            color: #ffcccc;
-            text-shadow: 0 0 3px #d32f2f;
-            animation: fadeIn 2s ease-in-out, float 3s ease-in-out infinite;
-            animation-delay: 0.5s;
-            opacity: 0;
-            animation-fill-mode: forwards;
-        }
-
-        .year {
-            font-size: 3rem;
-            color: #ff6b6b;
-            text-shadow: 
-                0 0 5px #d32f2f,
-                0 0 8px #d32f2f;
-            animation: pulse 1.5s ease-in-out infinite;
-            margin-top: 20px;
+        /* Xóa các text không cần thiết */
+        .main-text, .sub-text, .year, .lixi-text {
+            display: none;
         }
 
         .lixi-section {
-            margin-top: 40px;
-            text-align: center;
-        }
-
-        .lixi-text {
-            font-size: 1.5rem;
-            color: #ffcccc;
-            margin-bottom: 20px;
-            text-shadow: 0 0 3px #d32f2f;
-            animation: float 2s ease-in-out infinite;
+            margin-top: 0; /* Reset margin */
         }
 
         .lixi-btn {
             display: inline-block;
-            padding: 15px 30px;
-            background: linear-gradient(135deg, #ff6b6b 0%, #d32f2f 100%);
-            color: #fff;
+            padding: 20px 40px; /* Tăng kích thước nút */
+            background: linear-gradient(135deg, #ffd700 0%, #ffb700 100%); /* Màu vàng gold nổi bật */
+            color: #a52a2a; /* Màu chữ đỏ đậm */
             text-decoration: none;
-            font-size: 1.2rem;
+            font-size: 1.8rem; /* Tăng kích thước chữ */
             font-weight: bold;
-            border-radius: 25px;
+            border-radius: 50px; /* Bo tròn hơn */
+            border: 3px solid #fff; /* Thêm viền trắng */
             box-shadow: 
-                0 5px 15px rgba(211, 47, 47, 0.4),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 8px 25px rgba(0, 0, 0, 0.5), /* Tăng bóng đổ */
+                inset 0 2px 2px rgba(255, 255, 255, 0.4);
             transition: all 0.3s ease;
-            animation: pulse 2s ease-in-out infinite;
+            animation: pulse 1.5s ease-in-out infinite; /* Giữ lại hiệu ứng pulse */
+            text-transform: uppercase; /* In hoa */
         }
 
         .lixi-btn:hover {
-            transform: translateY(-2px);
+            transform: translateY(-5px) scale(1.05); /* Hiệu ứng hover rõ hơn */
+            background: linear-gradient(135deg, #ffec80 0%, #ffc700 100%);
             box-shadow: 
-                0 8px 25px rgba(211, 47, 47, 0.6),
-                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+                0 12px 35px rgba(0, 0, 0, 0.6),
+                inset 0 2px 2px rgba(255, 255, 255, 0.5);
         }
 
         .sparkles {
@@ -121,7 +121,7 @@
             position: absolute;
             width: 5px;
             height: 5px;
-            background: #ff6b6b;
+            background: #ffd700; /* Đổi màu lấp lánh sang vàng */
             border-radius: 50%;
             animation: sparkle 3s linear infinite;
         }
@@ -133,7 +133,7 @@
                 transform: translateY(0px);
             }
             50% {
-                transform: translateY(-20px);
+                transform: translateY(-10px); /* Giảm độ nảy */
             }
         }
 
@@ -148,7 +148,7 @@
                 transform: scale(1);
             }
             50% {
-                transform: scale(1.1);
+                transform: scale(1.08); /* Tăng nhẹ độ phóng to */
             }
         }
 
@@ -164,40 +164,19 @@
         }
 
         @media (max-width: 768px) {
-            .main-text {
-                font-size: 3rem;
-            }
-            .sub-text {
-                font-size: 1.2rem;
-            }
-            .year {
-                font-size: 2rem;
-            }
-            .lixi-text {
-                font-size: 1.2rem;
-            }
             .lixi-btn {
-                font-size: 1rem;
-                padding: 12px 25px;
+                font-size: 1.5rem;
+                padding: 18px 35px;
             }
         }
 
         @media (max-width: 480px) {
-            .main-text {
-                font-size: 2rem;
-            }
-            .sub-text {
-                font-size: 1rem;
-            }
-            .year {
-                font-size: 1.5rem;
-            }
-            .lixi-text {
-                font-size: 1rem;
+            .celebration-container {
+                padding: 20px;
             }
             .lixi-btn {
-                font-size: 0.9rem;
-                padding: 10px 20px;
+                font-size: 1.2rem;
+                padding: 15px 30px;
             }
         }
     </style>
@@ -205,14 +184,9 @@
 <body>
     <div class="sparkles" id="sparkles"></div>
     <div class="celebration-container">
-        <h1 class="main-text">CHÚC MỪNG NĂM MỚI</h1>
-        <p class="sub-text">An Khang Thịnh Vượng</p>
-        <div class="year">2026</div>
-        
         <div class="lixi-section">
-            <p class="lixi-text">🎁 Đã xem pháo hoa xong rồi! 🎁</p>
             <a href="#" class="lixi-btn" onclick="alert('🧧 Chúc mừng bạn nhận được 100.000 VNĐ lì xì! 🧧\\nCảm ơn bạn đã xem pháo hoa cùng tôi! ❤️')">
-                🧧 NHẬN LÌ XÌ NGAY 🧧
+                Nhận lì xì ngay
             </a>
         </div>
     </div>
