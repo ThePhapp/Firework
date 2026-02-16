@@ -477,7 +477,7 @@ body {
 	height: 100vh; /* Toàn màn hình */
 	background-size: cover; /* Tự động scale theo chiều phù hợp nhất */
 	background-repeat: no-repeat;
-	background-position: center center; /* Căn giữa */
+	background-position: center bottom; /* Căn giữa ngang, lấy phần dưới ảnh */
 	opacity: 0.15;
 	z-index: 1;
 	pointer-events: none;
