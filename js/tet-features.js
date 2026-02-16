@@ -27,6 +27,37 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
     let hasShownLixiMessage = false; // Đã hiển thị câu lì xì chưa
     const FIREWORKS_DURATION = 106000; // 1 phút 46 giây (106000ms)
 
+    // Config ảnh nền động
+    const backgroundImages = [
+        {
+            url: 'https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=1920',
+            position: 'center' // left, right, center
+        },
+        {
+            url: 'https://images.unsplash.com/photo-1468818438311-4bab781ab9b8?w=1920',
+            position: 'center'
+        },
+        {
+            url: 'https://images.unsplash.com/photo-1519904981063-b0cf448d479e?w=1920',
+            position: 'left'
+        },
+        {
+            url: 'https://images.unsplash.com/photo-1518709268805-4e9042af2ac6?w=1920', 
+            position: 'right'
+        },
+        {
+            url: 'https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1920',
+            position: 'center'
+        },
+        {
+            url: 'https://images.unsplash.com/photo-1517732306149-e8f829eb588a?w=1920',
+            position: 'left'
+        }
+    ];
+    
+    let currentImageIndex = 0;
+    let imageChangeInterval = null;
+
     // Khởi tạo nhạc nền
     function initBackgroundMusic() {
         backgroundMusic = new Audio('./audio/Tet-music-1.mp3');
@@ -123,6 +154,51 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
         }
     }
 
+    // Thay đổi ảnh nền ngẫu nhiên
+    function changeBackgroundImage() {
+        const backgroundDiv = document.querySelector('.background-image');
+        if (!backgroundDiv) return;
+
+        // Chọn một ảnh ngẫu nhiên (khác với ảnh hiện tại)
+        let newIndex;
+        do {
+            newIndex = Math.floor(Math.random() * backgroundImages.length);
+        } while (newIndex === currentImageIndex && backgroundImages.length > 1);
+        
+        currentImageIndex = newIndex;
+        const selectedImage = backgroundImages[currentImageIndex];
+        
+        console.log(`🖼️ Đổi ảnh nền: ${selectedImage.url} (${selectedImage.position})`);
+        
+        // Xóa tất cả class align cũ
+        backgroundDiv.classList.remove('align-left', 'align-right', 'align-center');
+        
+        // Thêm class align mới
+        backgroundDiv.classList.add(`align-${selectedImage.position}`);
+        
+        // Đổi ảnh nền
+        backgroundDiv.style.backgroundImage = `url('${selectedImage.url}')`;
+    }
+
+    // Bắt đầu chu trình thay đổi ảnh nền
+    function startBackgroundImageCycle() {
+        // Đổi ảnh ngay lập tức lần đầu
+        changeBackgroundImage();
+        
+        // Sau đó đổi mỗi 8-12 giây
+        imageChangeInterval = setInterval(() => {
+            changeBackgroundImage();
+        }, Math.random() * 4000 + 8000); // 8-12 giây ngẫu nhiên
+    }
+
+    // Dừng chu trình thay đổi ảnh nền
+    function stopBackgroundImageCycle() {
+        if (imageChangeInterval) {
+            clearInterval(imageChangeInterval);
+            imageChangeInterval = null;
+        }
+    }
+
     // Kiểm tra thời gian pháo hoa
     function checkFireworksTime() {
         if (!fireworksStartTime) return;
@@ -182,6 +258,9 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
             setTimeout(() => {
                 startGreetings();
             }, 2000);
+
+            // Bắt đầu chu trình thay đổi ảnh nền
+            startBackgroundImageCycle();
 
             // Bắt đầu đếm thời gian
             fireworksStartTime = Date.now();

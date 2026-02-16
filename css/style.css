@@ -468,19 +468,34 @@ body {
 	}
 }
 
-/* Ảnh nền */
+/* Ảnh nền động */
 .background-image {
 	position: absolute;
-	top: 0;
+	bottom: 0; /* Đặt ở đáy màn hình */
 	left: 0;
 	width: 100%;
-	height: 100%;
-	background-image: url('https://images.unsplash.com/photo-1483728642387-6c3bdd6c93e5?w=1920');
+	height: 70%; /* Chiều cao 70% để tập trung ở dưới */
 	background-size: cover;
-	background-position: center;
+	background-position: center bottom; /* Căn dưới */
 	opacity: 0.15;
 	z-index: 1;
 	pointer-events: none;
+	/* Filter đen trắng và làm mờ */
+	filter: grayscale(100%) blur(1px) brightness(0.7);
+	transition: background-image 1s ease-in-out;
+}
+
+/* Các vị trí căn chỉnh */
+.background-image.align-left {
+	background-position: left bottom;
+}
+
+.background-image.align-right {
+	background-position: right bottom;
+}
+
+.background-image.align-center {
+	background-position: center bottom;
 }
 
 /* Lời chúc */
