@@ -34,11 +34,11 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
             position: 'center'
         },
         {
-            url: './images/background/firework/2.webp',
+            url: './images/background/firework/2.png',
             position: 'left'
         },
         {
-            url: './images/background/firework/3.webp',
+            url: './images/background/firework/3.png',
             position: 'right'
         },
         {
