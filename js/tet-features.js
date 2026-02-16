@@ -178,8 +178,10 @@ Không được sử dụng cho mục đích thương mại khi chưa có sự �
                 }, 500);
             });
 
-            // Bắt đầu hiển thị lời chúc
-            startGreetings();
+            // Bắt đầu hiển thị lời chúc sau 2 giây
+            setTimeout(() => {
+                startGreetings();
+            }, 2000);
 
             // Bắt đầu đếm thời gian
             fireworksStartTime = Date.now();
